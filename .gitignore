@@ -1,0 +1,124 @@
+ 
+
+# .gitignore para frontend y backend (proyecto ecommerce)
+# Colocar en la raíz del proyecto
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Node / Frontend / Backend en Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/out/
+frontend/.npm/
+frontend/.npmrc
+frontend/.vite/
+frontend/.cache/
+frontend/.next/
+frontend/.svelte-kit/
+frontend/public/build/
+frontend/*.tgz
+
+# Archivos de entorno / secretos
+frontend/env
+frontend/.env.*.local
+frontend/.env.local
+frontend/.env.production
+frontend/.env.test
+frontend/.env.development
+secrets.env
+frontend/*.key
+frontend/*.pem
+
+# Manejo de paquetes (no ignorar lockfiles si quieres reproducibilidad)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Python / Backend (Django, Flask, etc.)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+.eggs/
+.Python
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+.pytest_cache/
+coverage.xml
+htmlcov/
+*.cover
+*.coverage
+
+# Base de datos local / archivos de desarrollo
+db.sqlite3
+*.sqlite3
+*.db
+
+# Django
+staticfiles/
+media/
+local_settings.py
+
+# Java / Spring / Backend Java
+target/
+*.class
+*.jar
+*.war
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# IDEs / editores
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Docker
+docker-compose.override.yml
+.docker/
+docker-compose.*.yml
+
+# CI / CD
+.env.ci
+
+# Otros
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Dependencias de frontend generadas por frameworks
+# Angular
+.angular/
+# React Native
+.expo/
+# Flutter (si aplica)
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
