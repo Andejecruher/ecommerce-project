@@ -2,6 +2,7 @@ import logo from "@/assets/logos/logo.png";
 
 export function Footer() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return (
         <footer>
             <div className="p-6 sm:px-25 sm:py-22 gap-[30px] flex flex-col max-w-auto lg:flex-row lg:justify-between lg:items-center ">
@@ -71,6 +72,8 @@ export function Footer() {
         </footer>
     );
 =======
+=======
+>>>>>>> ed97aa6 (feat: agregar lucide y mejorar el componente Header con menú móvil)
   return (
     <footer>
       <div className="p-6 sm:px-25 sm:py-22  ">
@@ -137,6 +140,11 @@ export function Footer() {
               </li>
             </ul>
           </div>
+=======
+    return (
+        <div>
+            <h1>Footer aqui</h1>
+>>>>>>> 9e49363 (feat: agregar lucide y mejorar el componente Header con menú móvil)
         </div>
       </div>
     </footer>
