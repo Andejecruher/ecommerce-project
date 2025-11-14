@@ -424,4 +424,7 @@ export function Header() {
         </header>
     )
 }
+<<<<<<< HEAD
 >>>>>>> 9e49363 (feat: agregar lucide y mejorar el componente Header con menú móvil)
+=======
+>>>>>>> 0642855 (feat: mejorar el componente Header con menú móvil y selección de elementos)
