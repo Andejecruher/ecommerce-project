@@ -126,3 +126,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* :root {
+  --slide-gap: 20px;
+}
+
+.slick-slide {
+  margin: 0 calc(var(--slide-gap) / 2);
+}
+
+.slick-list {
+  margin: 0 calc(var(--slide-gap) / -2);
+} */
