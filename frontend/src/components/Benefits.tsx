@@ -29,8 +29,8 @@ const cards = [
             y2="82.5569"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.25249" stop-color="#59A49E" />
-            <stop offset="0.637527" stop-color="#A6D8D2" />
+            <stop offset="0.25249" stopColor="#59A49E" />
+            <stop offset="0.637527" stopColor="#A6D8D2" />
           </linearGradient>
           <linearGradient
             id="paint1_linear_280_572"
@@ -40,8 +40,8 @@ const cards = [
             y2="0.4"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.138287" stop-color="#FFB23F" />
-            <stop offset="0.467052" stop-color="#FAD8A5" />
+            <stop offset="0.138287" stopColor="#FFB23F" />
+            <stop offset="0.467052" stopColor="#FAD8A5" />
           </linearGradient>
           <linearGradient
             id="paint2_linear_280_572"
@@ -51,8 +51,8 @@ const cards = [
             y2="72.5569"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.25249" stop-color="#59A49E" />
-            <stop offset="0.637527" stop-color="#A6D8D2" />
+            <stop offset="0.25249" stopColor="#59A49E" />
+            <stop offset="0.637527" stopColor="#A6D8D2" />
           </linearGradient>
         </defs>
       </svg>
@@ -91,8 +91,8 @@ const cards = [
             y2="43.7944"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.25249" stop-color="#59A49E" />
-            <stop offset="0.637527" stop-color="#A6D8D2" />
+            <stop offset="0.25249" stopColor="#59A49E" />
+            <stop offset="0.637527" stopColor="#A6D8D2" />
           </linearGradient>
           <linearGradient
             id="paint1_linear_280_517"
@@ -102,8 +102,8 @@ const cards = [
             y2="71.4456"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.25249" stop-color="#59A49E" />
-            <stop offset="0.637527" stop-color="#A6D8D2" />
+            <stop offset="0.25249" stopColor="#59A49E" />
+            <stop offset="0.637527" stopColor="#A6D8D2" />
           </linearGradient>
           <linearGradient
             id="paint2_linear_280_517"
@@ -113,8 +113,8 @@ const cards = [
             y2="-6.6237"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.138287" stop-color="#FFB23F" />
-            <stop offset="0.467052" stop-color="#FAD8A5" />
+            <stop offset="0.138287" stopColor="#FFB23F" />
+            <stop offset="0.467052" stopColor="#FAD8A5" />
           </linearGradient>
         </defs>
       </svg>
@@ -149,8 +149,8 @@ const cards = [
             y2="-12.9784"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.138287" stop-color="#FFB23F" />
-            <stop offset="0.467052" stop-color="#FAD8A5" />
+            <stop offset="0.138287" stopColor="#FFB23F" />
+            <stop offset="0.467052" stopColor="#FAD8A5" />
           </linearGradient>
           <linearGradient
             id="paint1_linear_289_87"
@@ -160,8 +160,8 @@ const cards = [
             y2="70.4456"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.25249" stop-color="#40B4A6" />
-            <stop offset="0.637527" stop-color="#A6D8D2" />
+            <stop offset="0.25249" stopColor="#40B4A6" />
+            <stop offset="0.637527" stopColor="#A6D8D2" />
           </linearGradient>
         </defs>
       </svg>
@@ -185,14 +185,14 @@ export function Benefits({
     <section>
       <div className="px-6 mt-[100px] lg:mt-[180px]  sm:px-20  inline-flex flex-col max-w-auto gap-2 sm:flex sm:flex-row sm:justify-between lg:flex lg:flex-row lg:justify-between  ">
         <div>
-          <p className=" text-secondary-300 font-['Eudoxus_Sans'] text-[14px] sm:text-[18px] font-bold leading-[130%]">
+          <p className=" text-secondary-300  text-[14px] sm:text-[18px] font-bold leading-[130%]">
             {title}
           </p>
-          <h1 className="text-title-950 font-['Eudoxus_Sans'] max-w-[400px] text-[24px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+          <h1 className="text-title-950  max-w-[400px] text-[24px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
             {description}
           </h1>
         </div>
-        <p className="text-[#AFADB5] max-w-[430px]  font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%] ">
+        <p className="text-[#AFADB5] max-w-[430px]   font-medium text-[14px] sm:text-[18px] leading-[180%] ">
           {slogan}
         </p>
       </div>
@@ -200,14 +200,14 @@ export function Benefits({
       <div className="px-6 mt-[30px] sm:mt-[50px] sm:px-20 sm:grid sm:grid-cols-3 sm:gap-[29px]">
         {cards.map((card) => {
           return (
-            <div className="flex sm:mt-5 shadow-[0_4px_100px_0_rgba(175,173,181,0.10)]  px-4 flex-col  bg-white h-[194px] sm:h-[285px] ">
+            <div key={card.title + Math.random()} className="flex sm:mt-5 shadow-[0_4px_100px_0_rgba(175,173,181,0.10)]  px-4 flex-col  bg-white h-[194px] sm:h-[285px] ">
               <div className=" flex items-center justify-center mt-4 sm:mt-[26px]  w-11 h-11  rounded-full bg-[#F9F9F9]">
                 {card.icon}
               </div>
-              <h1 className=" mt-3.5 sm:mt-6 text-title-950 font-['Eudoxus_Sans'] text-[16px] lg:text-[24px] font-bold leading-[130%]">
+              <h1 className=" mt-3.5 sm:mt-6 text-title-950  text-[16px] lg:text-[24px] font-bold leading-[130%]">
                 {card.title}
               </h1>
-              <p className=" mt-1.5 sm:mt-5 text-[#AFADB5] font-['Eudoxus_Sans'] font-medium text-[14px] lg:text-[18px] leading-[180%]">
+              <p className=" mt-1.5 sm:mt-5 text-[#AFADB5]  font-medium text-[14px] lg:text-[18px] leading-[180%]">
                 {card.description}
               </p>
             </div>

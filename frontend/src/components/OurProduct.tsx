@@ -6,13 +6,13 @@ export function OurProduct() {
     <section>
       <div className="flex flex-col mt-[103px] lg:mt-[180px] px-6 sm:flex lg:flex-row   md:px-20 lg:gap-[50px]">
         <div className="">
-          <p className="text-secondary-300 font-['Eudoxus_Sans'] text-[14px] sm:text-[18px] font-bold leading-[130%]">
+          <p className="text-secondary-300  text-[14px] sm:text-[18px] font-bold leading-[130%]">
             Our Product
           </p>
-          <h1 className="text-title-950  font-['Eudoxus_Sans'] max-w-[450px] text-[24px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+          <h1 className="text-title-950   max-w-[450px] text-[24px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
             Crafted by talented and high quality material
           </h1>
-          <p className="text-[#AFADB5] max-w-[430px] mt-4  font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+          <p className="text-[#AFADB5] max-w-[430px] mt-4   font-medium text-[14px] sm:text-[18px] leading-[180%]">
             Pellentesque etiam blandit in tincidunt at donec. Eget ipsum
             dignissim placerat nisi, adipiscing mauris non purus parturient.
           </p>
@@ -22,26 +22,26 @@ export function OurProduct() {
 
           <div className="sm:hidden flex gird grid-cols-3 mt-[30px] gap-5 ">
             <div>
-              <h1 className="text-title-950 font-['Eudoxus_Sans']  text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+              <h1 className="text-title-950   text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
                 20+
               </h1>
-              <p className="text-[#AFADB5]   font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+              <p className="text-[#AFADB5]    font-medium text-[14px] sm:text-[18px] leading-[180%]">
                 Years Experience
               </p>
             </div>
             <div>
-              <h1 className="text-title-950 font-['Eudoxus_Sans']  text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+              <h1 className="text-title-950   text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
                 483
               </h1>
-              <p className="text-[#AFADB5]   font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+              <p className="text-[#AFADB5]    font-medium text-[14px] sm:text-[18px] leading-[180%]">
                 Happy Client
               </p>
             </div>
             <div>
-              <h1 className="text-title-950 font-['Eudoxus_Sans']  text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+              <h1 className="text-title-950   text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
                 150+
               </h1>
-              <p className="text-[#AFADB5]    font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+              <p className="text-[#AFADB5]     font-medium text-[14px] sm:text-[18px] leading-[180%]">
                 Project Finished
               </p>
             </div>
@@ -57,26 +57,26 @@ export function OurProduct() {
         <div>
           <div className="hidden  sm:flex sm:gird sm:grid-cols-3 sm:mt-[30px] sm:gap-[50px] lg:justify-end ">
             <div>
-              <h1 className="text-title-950 font-['Eudoxus_Sans']  text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+              <h1 className="text-title-950   text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
                 20+
               </h1>
-              <p className="text-[#AFADB5]   font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+              <p className="text-[#AFADB5]    font-medium text-[14px] sm:text-[18px] leading-[180%]">
                 Years Experience
               </p>
             </div>
             <div>
-              <h1 className="text-title-950 font-['Eudoxus_Sans']  text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+              <h1 className="text-title-950   text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
                 483
               </h1>
-              <p className="text-[#AFADB5]   font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+              <p className="text-[#AFADB5]    font-medium text-[14px] sm:text-[18px] leading-[180%]">
                 Happy Client
               </p>
             </div>
             <div>
-              <h1 className="text-title-950 font-['Eudoxus_Sans']  text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
+              <h1 className="text-title-950   text-[22px] sm:text-[30px] lg:text-[44px]  font-bold leading-[130%]">
                 150+
               </h1>
-              <p className="text-[#AFADB5]    font-['Eudoxus_Sans'] font-medium text-[14px] sm:text-[18px] leading-[180%]">
+              <p className="text-[#AFADB5]     font-medium text-[14px] sm:text-[18px] leading-[180%]">
                 Project Finished
               </p>
             </div>
