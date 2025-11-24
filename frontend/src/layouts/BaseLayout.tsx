@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Benefits } from "@/components/Benefits";
 import { OurProduct } from "@/components/OurProduct";
 import { Testimonials } from "@/components/Testimonials";
-
+import { Articles } from "@/components/Articles";
 export function BaseLayout() {
   return (
     <>
@@ -16,6 +16,7 @@ export function BaseLayout() {
       />
       <OurProduct />
       <Testimonials />
+      <Articles />
       <Footer />
     </>
   );

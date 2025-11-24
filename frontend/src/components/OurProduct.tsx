@@ -50,7 +50,7 @@ export function OurProduct() {
             <img
               src={img}
               alt="imagen"
-              className="w-full lg:w-[595px] xl:w-[700px] lg:h-[239px] xl:h-[261px]"
+              className="w-full lg:w-[595px] xl:w-[700px] lg:h-[239px] xl:h-[205px]"
             />
           </div>
         </div>
