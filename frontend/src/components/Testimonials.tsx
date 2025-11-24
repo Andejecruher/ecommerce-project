@@ -49,13 +49,23 @@ export function Testimonials() {
   const settings = {
     centerMode: true,
     centerPadding: "25%",
-    slidesToShow: 2,      // Muestra 1 slide completo (el del centro)
+    slidesToShow: 2, // Muestra 1 slide completo (el del centro)
     slidesToScroll: 1,
     infinite: true,
     speed: 500,
     dots: false,
     arrows: true,
     focusOnSelect: true,
+
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: "0px",
+        },
+      },
+    ],
   };
   return (
     <section>
@@ -72,13 +82,13 @@ export function Testimonials() {
           placerat nisi, adipiscing mauris non purus parturient.
         </p>
       </div>
-      <div className="slider-container">
+      <div className="slider-container ">
         <Slider {...settings}>
           {TestimonialsCards.map((card) => {
             return (
               <div>
-                <div className="flex sm:mt-5 shadow-[0_4px_100px_0_rgba(175,173,181,0.10)]  px-4 flex-col  bg-white max-w-[545px] max-h-[275px] mr-5">
-                  <div className=" flex items-center justify-center mt-[18px]  sm:mt-[26px]  w-11 h-11 ">
+                <div className="flex sm:mt-5  shadow-[0_4px_100px_0_rgba(175,173,181,0.10)]  px-4 flex-col  bg-white max-w-[545px] max-h-[275px] mr-5">
+                  <div className=" px-4 items-center justify-center mt-[18px]  sm:mt-[26px]  w-11 h-11 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
@@ -120,11 +130,11 @@ export function Testimonials() {
                       </defs>
                     </svg>
                   </div>
-                  <p className=" mt-4 sm:mt-6 text-[#AFADB5] text-[14px] md:text-[18px] ">
+                  <p className=" mt-4 px-4 sm:mt-6 text-[#AFADB5] text-[14px] md:text-[18px] ">
                     {card.slogan}
                   </p>
 
-                  <div className="mb-[18px] mt-[18px] flex justify-between ">
+                  <div className="mb-[18px] px-4 mt-[18px] flex justify-between ">
                     <div className="flex items-center gap-3.5">
                       <img
                         src={card.avatar}
@@ -154,7 +164,7 @@ export function Testimonials() {
                           />
                         </svg>
                       </div>
-                      <h1 className="text-title-950 fond-['Eudoxus_Sans'] font-bold text-[14px] leanding-[130%]">
+                      <h1 className="text-title-950  fond-['Eudoxus_Sans'] font-bold text-[14px] leanding-[130%]">
                         {card.rating}
                       </h1>
                     </div>
