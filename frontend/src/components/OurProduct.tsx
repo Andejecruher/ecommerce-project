@@ -16,7 +16,7 @@ export function OurProduct() {
             Pellentesque etiam blandit in tincidunt at donec. Eget ipsum
             dignissim placerat nisi, adipiscing mauris non purus parturient.
           </p>
-          <button className="flex w-full text-white lg:w-[170px] lg:h-[54px] mt-[30px] h-12 bg-primary-500 p-15px 45px justify-center items-center gap-2.5 shrink-0">
+          <button className="flex w-full text-white lg:w-[170px] lg:h-[54px] mt-[30px] h-12 bg-primary-500 p-15px 45px justify-center items-center gap-2.5 shrink-0 font-bold">
             Learn More
           </button>
 

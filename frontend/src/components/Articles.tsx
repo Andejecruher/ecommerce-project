@@ -7,7 +7,7 @@ import plantas from "@/assets/img/plantas.jpg";
 export function Articles() {
   return (
     <section>
-      <div className="md:flex md:flex-row md:px-25 gap-[50px] mt-25 md:mt-[180px]">
+      <div className="xl:flex xl:flex-row xl:px-25 lg:flex lg:items-center gap-[50px] mt-25 lg:mt-[180px]">
         <div className="px-4">
           <p className="text-secondary-300  text-[14px] sm:text-[18px] font-bold leading-[130%]">
             Articles
@@ -26,7 +26,7 @@ export function Articles() {
             />
           </div>
         </div>
-        <div className="mt-5 px-4 w-[375px] lg:w-[500px]">
+        <div className="mt-5 px-4 w-[275px] lg:w-[500px]">
           <div className="flex flex-row gap-3.5 items-center justify-center ">
             <div className="w-[196px] h-[110px] md:w-[260px] md:h-[260px]">
               <img
