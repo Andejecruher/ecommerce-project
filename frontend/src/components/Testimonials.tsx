@@ -43,18 +43,32 @@ const TestimonialsCards = [
     rating: "4.3",
     avatar: "https://i.pravatar.cc/300",
   },
+  {
+    slogan:
+      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
+    title: "Janne Cooper",
+    rating: "4.3",
+    avatar: "https://i.pravatar.cc/300",
+  },
+  {
+    slogan:
+      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
+    title: "Janne Cooper",
+    rating: "4.3",
+    avatar: "https://i.pravatar.cc/300",
+  },
 ];
 
 export function Testimonials() {
   const settings = {
-    centerMode: true,
-    centerPadding: "25%",
-    slidesToShow: 2, // Muestra 1 slide completo (el del centro)
+    centerMode: false,
+    centerPadding: "20%",
+    slidesToShow: 3, // Muestra 1 slide completo (el del centro)
     slidesToScroll: 1,
     infinite: true,
     speed: 500,
     dots: false,
-    arrows: true,
+    arrows: false,
     focusOnSelect: true,
 
     responsive: [
@@ -63,6 +77,9 @@ export function Testimonials() {
         settings: {
           slidesToShow: 1,
           centerPadding: "0px",
+          className: "center",
+          arrows: false,
+          focusOnSelect: false,
         },
       },
     ],
