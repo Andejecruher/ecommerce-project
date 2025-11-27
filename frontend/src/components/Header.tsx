@@ -1,45 +1,61 @@
 import logo from "@/assets/logos/logo.png";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
 
 export function Header() {
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (location.pathname) {
+      const path = location.pathname.replace("/", "");
+      setSelectedMenuItem(path);
+    }
+  }, [location]);
 
   return (
     <header>
       <div className="px-6 py-7 md:flex md:justify-between md:items-center">
         <div className="flex justify-between items-center ">
-          <img src={logo} alt="Logo" />
-          {isMenuOpen ? (
-            <X onClick={() => setIsMenuOpen(false)} className="md:hidden" />
-          ) : (
-            <Menu onClick={() => setIsMenuOpen(true)} className="md:hidden" />
-          )}
+          <Link
+            className={`${selectedMenuItem === "" ? "text-primary-500" : ""
+              }`}
+            to="/"
+            onClick={() => setSelectedMenuItem("")}
+          >
+            <img src={logo} alt="Logo" />
+            {isMenuOpen ? (
+              <X onClick={() => setIsMenuOpen(false)} className="md:hidden" />
+            ) : (
+              <Menu onClick={() => setIsMenuOpen(true)} className="md:hidden" />
+            )}
+          </Link>
         </div>
         <ul className="hidden md:flex md:gap-8 font-medium text-md">
           <li className="text-title-950  text-[18px] font-medium leading-[180%]">
-            <a
-              className={`${selectedMenuItem === "product" ? "text-primary-500" : ""
+            <Link
+              className={`${selectedMenuItem === "products" ? "text-primary-500" : ""
                 }`}
-              href="#"
-              onClick={() => setSelectedMenuItem("product")}
+              to="/products"
+              onClick={() => setSelectedMenuItem("products")}
             >
               Product
-            </a>
+            </Link>
           </li>
           <li className="text-title-950  text-[18px] font-medium leading-[180%]">
-            <a href="#" onClick={() => setSelectedMenuItem("services")}>
+            <a href="services" onClick={() => setSelectedMenuItem("services")}>
               Services
             </a>
           </li>
           <li className="text-title-950  text-[18px] font-medium leading-[180%]">
-            <a href="#" onClick={() => setSelectedMenuItem("article")}>
+            <a href="article" onClick={() => setSelectedMenuItem("article")}>
               Article
             </a>
           </li>
           <li className="text-title-950  text-[18px] font-medium leading-[180%]">
-            <a href="#" onClick={() => setSelectedMenuItem("about")}>
+            <a href="about" onClick={() => setSelectedMenuItem("about")}>
               About Us
             </a>
           </li>
