@@ -1,4 +1,4 @@
-import tele from "@/assets/img/sala.png";
+import tele from "@/assets/img/Sala.png";
 
 export function Sala() {
   return (
