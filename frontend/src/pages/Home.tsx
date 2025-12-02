@@ -3,8 +3,6 @@ import { Benefits } from "@/components/Benefits";
 import { Carrusel } from "@/components/Carrusel";
 import { Discount } from "@/components/Discount";
 import { Discover } from "@/components/Discover";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { OurProduct } from "@/components/OurProduct";
 import { Product } from "@/components/Product";
 import { Search } from "@/components/Search";
@@ -13,7 +11,6 @@ import { Testimonials } from "@/components/Testimonials";
 export function Home() {
   return (
     <>
-      <Header />
       <Discover />
       <Search />
       <Benefits
@@ -28,7 +25,6 @@ export function Home() {
       <Testimonials />
       <Articles />
       <Discount />
-      <Footer />
     </>
   );
 }
