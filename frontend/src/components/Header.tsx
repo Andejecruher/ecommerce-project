@@ -146,8 +146,7 @@ export function Header() {
       <div className="px-6 py-7 md:flex md:justify-between md:items-center">
         <div className="flex justify-between items-center ">
           <Link
-            className={`${selectedMenuItem === "" ? "text-primary-500" : ""
-              }`}
+            className={`${selectedMenuItem === "" ? "text-primary-500" : ""}`}
             to="/"
             onClick={() => setSelectedMenuItem("")}
           >
@@ -162,8 +161,9 @@ export function Header() {
         <ul className="hidden md:flex md:gap-8 font-medium text-md">
           <li className="text-title-950  text-[18px] font-medium leading-[180%]">
             <Link
-              className={`${selectedMenuItem === "products" ? "text-primary-500" : ""
-                }`}
+              className={`${
+                selectedMenuItem === "products" ? "text-primary-500" : ""
+              }`}
               to="/products"
               onClick={() => setSelectedMenuItem("products")}
             >
@@ -260,8 +260,9 @@ export function Header() {
           <ul className="flex flex-col gap-5 font-medium text-md justify-center items-center mt-10">
             <li>
               <a
-                className={`${selectedMenuItem === "product" ? "text-primary-500" : ""
-                  }`}
+                className={`${
+                  selectedMenuItem === "product" ? "text-primary-500" : ""
+                }`}
                 href="#"
                 onClick={() => setSelectedMenuItem("product")}
               >

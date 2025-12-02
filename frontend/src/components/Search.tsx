@@ -9,9 +9,10 @@ export function Search() {
           <div className="px-6 h-[54px] lg:h-[84px] shadow-[0_4px_80px_0_rgba(175,173,181,0.20)] items-center flex flex-row justify-between ">
             <div className=" flex gap-3 items-center px-3.5 lg:px-[26px] ">
               <img src={busque} alt="imagen" className="w-6 h-6" />
-              <p className="text-[#AFADB5] flex items-center   font-medium text-[14px] sm:text-[18px] leading-[180%]">
-                Search property
-              </p>
+              <input
+                className="text-[#AFADB5] flex items-center w-full h-[45px] outline-0 font-medium text-[14px] sm:text-[18px] leading-[180%]"
+                placeholder="Search property"
+              />
             </div>
             <div>
               <button className="w-[100px] lg:w-[170px] h-[34px] lg:h-[54px] bg-primary-500 text-[#FFF] text-[14px] font-bold leading-[130%] ">

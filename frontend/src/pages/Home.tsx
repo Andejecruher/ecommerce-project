@@ -11,24 +11,24 @@ import { Search } from "@/components/Search";
 import { Testimonials } from "@/components/Testimonials";
 
 export function Home() {
-    return (
-        <>
-            <Header />
-            <Discover />
-            <Search />
-            <Benefits
-                title="Benefits"
-                description=" Benefits when using our services"
-                slogan="Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim
+  return (
+    <>
+      <Header />
+      <Discover />
+      <Search />
+      <Benefits
+        title="Benefits"
+        description=" Benefits when using our services"
+        slogan="Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim
           placerat nisi, adipiscing mauris non purus parturient."
-            />
-            <Product />
-            <Carrusel />
-            <OurProduct />
-            <Testimonials />
-            <Articles />
-            <Discount />
-            <Footer />
-        </>
-    );
+      />
+      <Product />
+      <Carrusel />
+      <OurProduct />
+      <Testimonials />
+      <Articles />
+      <Discount />
+      <Footer />
+    </>
+  );
 }
