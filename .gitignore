@@ -28,6 +28,19 @@ frontend/.svelte-kit/
 frontend/public/build/
 frontend/*.tgz
 
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/out/
+backend/.npm/
+backend/.npmrc
+backend/.vite/
+backend/.cache/
+backend/.next/
+backend/.svelte-kit/
+backend/public/build/
+backend/*.tgz
+
 # Archivos de entorno / secretos
 frontend/env
 frontend/.env.*.local
