@@ -4,15 +4,17 @@ export function CardProduct({
   title,
   slogan,
   precio,
+  onSelect,
 }: {
   url: string;
   localizador: string;
   title: string;
   slogan: string;
   precio: string;
+  onSelect?: () => void;
 }) {
   return (
-    <div className="mt-[30px] px-2 lg:px-10 flex flex-col">
+    <div onClick={onSelect} className="mt-[30px] px-2 lg:px-10 flex flex-col">
       <div>
         <img
           src={url}
