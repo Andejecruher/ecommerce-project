@@ -1,15 +1,23 @@
 
-import { Request, Response } from 'express';
-import { getAllProducts as fetchAllProducts } from '../services/products';
+import { allProducts, ourPopularProducts, productById, productsByCategory } from '../services/products';
+import { Producto } from '../types';
 
-async function getAllProducts(req: Request, res: Response): Promise<void> {
-    try {
-        const products = await fetchAllProducts();
-        res.json(products);
-    } catch (error) {
-        console.error("Error fetching products:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+async function getAllProducts(): Promise<Producto[]> {
+    return allProducts();
 }
 
-export { getAllProducts };
+async function getProductById(id: number): Promise<Producto | null> {
+    // Implementation for fetching a product by ID
+    return productById(id);
+}
+
+async function getOurPopularProducts(): Promise<Producto[]> {
+    return ourPopularProducts();
+}
+
+async function getProductsByCategory(categoryId: number): Promise<Producto[]> {
+    // Implementation for fetching products by category
+    return productsByCategory(categoryId);
+}
+
+export { getAllProducts, getOurPopularProducts, getProductById, getProductsByCategory };
