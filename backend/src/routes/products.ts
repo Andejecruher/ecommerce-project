@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllProducts, getOurPopularProducts, getProductById, getProductsByCategory } from "../controllers/product";
+import { getAllProducts, getOurPopularProducts, getProductById, getProductsByCategory, getCategoryById, getName, getproductColor } from "../controllers/product";
 
 const router = Router();
 
@@ -90,5 +90,60 @@ router.get("/category/:categoryId", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+router.get("/category/:categoryId", async (req, res) => {
+    const categoryId = req.params.categoryId;
+    try {
+        const category = await getCategoryById(Number(categoryId));
+        if (category) {
+            res.json({
+                success: true,
+                data: category,
+                message: "Category retrieved successfully"
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: "Category not found"
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching category by ID:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+router.get("/name/:name", async (req, res) => {
+    const nombre = req.params.name;
+    try {
+        const product = await getName(String(nombre));
+        res.json({
+            success: true,
+            data: product,
+            message: "Product name retrieved successfully"
+        });
+    } catch (error) {
+        console.error("Error fetching product by name:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+router.get("/color/:color", async (req, res) => {
+    const color = req.params.color;
+    try {
+        const product = await getproductColor(String(color));
+        res.json({
+            success: true,
+            data: product,
+            message: "Product color retrieved successfully"
+        });
+    } catch (error) {
+        console.error("Error fetching product by color:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
 
 export default router;

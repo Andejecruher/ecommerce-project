@@ -117,6 +117,92 @@ async function productsByCategory(categoryId: number): Promise<Producto[]> {
     }
 }
 
+async function getCategoryById(category: number): Promise<Producto | null> {
+    const connection = await Database.getConnection();
 
-export { allProducts, ourPopularProducts, productById, productsByCategory };
+    try {
+        const sql = `SELECT * FROM productos WHERE id = ? LIMIT 1`;
+        const [rows] = await connection.execute(sql, [category]) as [any[], any];
+        const productos: Producto[] = rows.map(row => ({
+            id: row.id,
+            nombre: row.nombre,
+            descripcion: row.descripcion,
+            precio: row.precio,
+            categoria_id: row.categoria_id,
+            stock: row.stock,
+            color: row.color,
+            dimensiones: row.dimensiones,
+            peso: row.peso,
+            imagenes: row.imagenes,
+            destacado: !!row.destacado,
+            activo: !!row.activo,
+            fecha_creacion: row.fecha_creacion
+        }));
 
+        return productos[0];
+    } finally {
+        connection.release();
+    }
+}
+
+
+async function productName(nombre: any): Promise<Producto | null> {
+    // Implementation for fetching a product by name
+    const connection = await Database.getConnection();
+
+    try {
+        const sql = `SELECT * FROM productos WHERE nombre = ? LIMIT 1`;
+        await connection.execute(sql, [nombre]);
+        const [rows] = await connection.execute(sql, [nombre]) as [any[], any];
+        const productos: Producto[] = rows.map(row => ({
+            id: row.id,
+            nombre: row.nombre,
+            descripcion: row.descripcion,
+            precio: row.precio,
+            categoria_id: row.categoria_id,
+            stock: row.stock,
+            color: row.color,
+            dimensiones: row.dimensiones,
+            peso: row.peso,
+            imagenes: row.imagenes,
+            destacado: !!row.destacado,
+            activo: !!row.activo,
+            fecha_creacion: row.fecha_creacion
+        }));
+
+        return productos[0];
+    } finally {
+        connection.release();
+    }
+}
+
+async function getColor(color: string): Promise<Producto | null> {
+
+    const connection = await Database.getConnection();
+
+    try {
+        const sql = `SELECT * FROM productos WHERE color = ? LIMIT 1`;
+        const [rows] = await connection.execute(sql, [color]) as [any[], any];
+        const productos: Producto[] = rows.map(row => ({
+            id: row.id,
+            nombre: row.nombre,
+            descripcion: row.descripcion,
+            precio: row.precio,
+            categoria_id: row.categoria_id,
+            stock: row.stock,
+            color: row.color,
+            dimensiones: row.dimensiones,
+            peso: row.peso,
+            imagenes: row.imagenes,
+            destacado: !!row.destacado,
+            activo: !!row.activo,
+            fecha_creacion: row.fecha_creacion
+        }));
+
+        return productos[0];
+    } finally {
+        connection.release();
+    }
+}
+
+export { allProducts, ourPopularProducts, productById, productsByCategory, getCategoryById, productName,  getColor };
