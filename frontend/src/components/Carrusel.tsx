@@ -1,67 +1,29 @@
-import silla from "@/assets/img/Rectangle.png";
 import { CardProduct } from "@/components/ui/CardProduct";
+import { getPopularProducts } from "@/services/products";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 
-const CarruselCard = [
-  {
-    imagen: "silla",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "target",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "faro",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "sillon",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "silla",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "target",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "faro",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-  {
-    imagen: "sillon",
-    localizador: "Chair",
-    title: "White Aesthetic Chair",
-    slogan: "Combination of wood and wool",
-    precio: "$63.47",
-  },
-];
+interface Producto {
+  id?: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  precio_descuento?: number;
+  categoria_id: number;
+  stock: number;
+  material?: string;
+  color?: string;
+  dimensiones?: string;
+  peso?: number;
+  imagenes?: string;
+  destacado?: boolean;
+  activo?: boolean;
+  fecha_creacion?: Date;
+}
 
 export function Carrusel() {
+  const [products, setProducts] = useState<Producto[]>([]);
+
   const settings = {
     className: "center",
     centerMode: true,
@@ -86,19 +48,39 @@ export function Carrusel() {
     ],
   };
 
+
+  useEffect(() => {
+    const fetchPopularProducts = async () => {
+      try {
+        const products = await getPopularProducts();
+        if (products.success) {
+          setProducts(products.data);
+          alert(products.message);
+        } else {
+          alert(products.message);
+        }
+      } catch (error) {
+        console.error('Error fetching popular products:', error);
+        alert('Error fetching popular products');
+      }
+    };
+
+    fetchPopularProducts();
+  }, []);
+
   return (
     <section>
       <Slider {...settings}>
-        {CarruselCard.map((card) => {
+        {products.map((card) => {
           return (
             <>
               <CardProduct
-                key={card.title}
-                url={silla}
-                localizador={card.localizador}
-                title={card.title}
-                slogan={card.slogan}
-                precio={card.precio}
+                key={card.id}
+                url={card.imagenes || ""}
+                localizador={String(card.categoria_id)}
+                title={card.nombre}
+                slogan={card.descripcion}
+                precio={`$ ${card.precio.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}`}
               />
             </>
           );
