@@ -16,15 +16,18 @@ async function allProducts({
 }> {
     const connection = await Database.getConnection();
     const offset = (page && limit) ? (page - 1) * limit : 0;
+    console.log("🚀 ----------------------------------------🚀");
+    console.log("🚀 ~ :19 ~ allProducts ~ offset:", offset);
+    console.log("🚀 ----------------------------------------🚀");
 
     try {
         let sql = 'SELECT * FROM productos';
         const params: any[] = [];
 
         if (search) {
-            sql += ' WHERE nombre LIKE ? OR descripcion LIKE ?';
+            sql += ' WHERE nombre LIKE ? OR descripcion LIKE ? OR dimensiones LIKE ? OR color LIKE ? OR material LIKE ?';
             const searchTerm = `%${search}%`;
-            params.push(searchTerm, searchTerm);
+            params.push(searchTerm, searchTerm, searchTerm, searchTerm, searchTerm);
         }
 
         const limitValue = limit || 10;
