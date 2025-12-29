@@ -16,8 +16,8 @@ export function Header() {
   }, [location]);
 
   return (
-    <header>
-      <div className="px-6 py-7 md:flex md:justify-between md:items-center">
+    <header className="w-full sticky bg-background shadow-md  top-0 left-0 z-10 bg-white">
+      <div className="px-6 py-7 flex justify-between md:items-center">
         <div className="flex justify-between items-center ">
           <Link
             className={`${selectedMenuItem === "" ? "text-primary-500" : ""}`}
@@ -25,18 +25,14 @@ export function Header() {
             onClick={() => setSelectedMenuItem("")}
           >
             <img src={logo} alt="Logo" />
-            {isMenuOpen ? (
-              <X onClick={() => setIsMenuOpen(false)} className="md:hidden" />
-            ) : (
-              <Menu onClick={() => setIsMenuOpen(true)} className="md:hidden" />
-            )}
           </Link>
         </div>
         <ul className="hidden md:flex md:gap-8 font-medium text-md">
           <li className="text-title-950  text-[18px] font-medium leading-[180%]">
             <Link
-              className={`${selectedMenuItem === "products" ? "text-primary-500" : ""
-                }`}
+              className={`${
+                selectedMenuItem === "products" ? "text-primary-500" : ""
+              }`}
               to="/products"
               onClick={() => setSelectedMenuItem("products")}
             >
@@ -122,6 +118,14 @@ export function Header() {
             />
           </svg>
         </div>
+
+        <div className="md:hidden">
+          {isMenuOpen ? (
+            <X onClick={() => setIsMenuOpen(false)} className="md:hidden" />
+          ) : (
+            <Menu onClick={() => setIsMenuOpen(true)} className="md:hidden" />
+          )}
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -133,8 +137,9 @@ export function Header() {
           <ul className="flex flex-col gap-5 font-medium text-md justify-center items-center mt-10">
             <li>
               <a
-                className={`${selectedMenuItem === "product" ? "text-primary-500" : ""
-                  }`}
+                className={`${
+                  selectedMenuItem === "product" ? "text-primary-500" : ""
+                }`}
                 href="#"
                 onClick={() => setSelectedMenuItem("product")}
               >

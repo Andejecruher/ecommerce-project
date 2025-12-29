@@ -1,65 +1,36 @@
 import Slider from "react-slick";
+import { getTarjetas } from "@/services/products";
+import { useEffect, useState } from "react";
 
-const TestimonialsCards = [
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-  {
-    slogan:
-      "Pellentesque etiam blandit in tincidunt at donec. Eget ipsum dignissim placerat nisi, adipiscing mauris non.",
-    title: "Janne Cooper",
-    rating: "4.3",
-    avatar: "https://i.pravatar.cc/300",
-  },
-];
+interface tarjetas {
+  descripcion: string;
+  title: string;
+  avatar_url: string;
+  calificacion: number;
+}
 
 export function Testimonials() {
+  const [tarjeta, setProducts] = useState<tarjetas[]>([]);
+
+  useEffect(() => {
+    const fetchgettarjetas = async () => {
+      try {
+        const tarjeta = await getTarjetas();
+        if (tarjeta.success) {
+          setProducts(tarjeta.data);
+          console.log(tarjeta.message);
+        } else {
+          console.log(tarjeta.message);
+        }
+      } catch (error) {
+        console.error("Error fetching popular tarjetas:", error);
+        console.log("Error fetching popular tarjeta");
+      }
+    };
+
+    fetchgettarjetas();
+  }, []);
+
   const settings = {
     centerMode: false,
     centerPadding: "20%",
@@ -101,7 +72,7 @@ export function Testimonials() {
       </div>
       <div className="slider-container ">
         <Slider {...settings}>
-          {TestimonialsCards.map((card) => {
+          {tarjeta.map((card) => {
             return (
               <div>
                 <div className="flex sm:mt-5  shadow-[0_4px_100px_0_rgba(175,173,181,0.10)]  px-4 flex-col  bg-white max-w-[545px] max-h-[275px] mr-5">
@@ -148,13 +119,13 @@ export function Testimonials() {
                     </svg>
                   </div>
                   <p className=" mt-4 px-4 sm:mt-6 text-[#AFADB5] text-[14px] md:text-[18px] ">
-                    {card.slogan}
+                    {card.descripcion}
                   </p>
 
                   <div className="mb-[18px] px-4 mt-[18px] flex justify-between ">
                     <div className="flex items-center gap-3.5">
                       <img
-                        src={card.avatar}
+                        src={card.avatar_url}
                         alt="logo de eclipse"
                         className="w-7 h-7 rounded-full "
                       />
@@ -182,7 +153,7 @@ export function Testimonials() {
                         </svg>
                       </div>
                       <h1 className="text-title-950  fond-['Eudoxus_Sans'] font-bold text-[14px] leanding-[130%]">
-                        {card.rating}
+                        {card.calificacion}
                       </h1>
                     </div>
                   </div>

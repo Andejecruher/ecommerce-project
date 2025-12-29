@@ -2,22 +2,9 @@
 
 -- Crear base de datos
 CREATE DATABASE IF NOT EXISTS ecommerce_muebles;
+
 USE ecommerce_muebles;
 
--- -- Tabla de usuarios
--- CREATE TABLE usuarios (
---     id INT PRIMARY KEY AUTO_INCREMENT,
---     nombre VARCHAR(100) NOT NULL,
---     email VARCHAR(100) UNIQUE NOT NULL,
---     password VARCHAR(255) NOT NULL,
---     telefono VARCHAR(20),
---     direccion TEXT,
---     rol ENUM('admin', 'cliente') DEFAULT 'cliente',
---     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     activo BOOLEAN DEFAULT TRUE
--- );
-
--- Tabla de categorías
 CREATE TABLE categorias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
@@ -26,7 +13,7 @@ CREATE TABLE categorias (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de productos
+
 CREATE TABLE productos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(200) NOT NULL,
@@ -46,55 +33,43 @@ CREATE TABLE productos (
     FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
 
--- -- Tabla de reseñas
--- CREATE TABLE reseñas (
---     id INT PRIMARY KEY AUTO_INCREMENT,
---     producto_id INT NOT NULL,
---     usuario_id INT NOT NULL,
---     calificacion INT CHECK (calificacion >= 1 AND calificacion <= 5),
---     comentario TEXT,
---     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (producto_id) REFERENCES productos(id),
---     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
--- );
 
--- -- Tabla de carrito
--- CREATE TABLE carrito (
---     id INT PRIMARY KEY AUTO_INCREMENT,
---     usuario_id INT NOT NULL,
---     producto_id INT NOT NULL,
---     cantidad INT DEFAULT 1,
---     fecha_agregado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
---     FOREIGN KEY (producto_id) REFERENCES productos(id),
---     UNIQUE KEY unique_carrito_item (usuario_id, producto_id)
--- );
+ CREATE TABLE tarjetas (
+     descripcion VARCHAR(255) NOT NULL,
+     avatar_url VARCHAR(255),
+     title VARCHAR(100) NOT NULL,
+     calificacion DECIMAL(10, 2) NOT NULL,
+     id INT PRIMARY KEY AUTO_INCREMENT
+);
 
--- -- Tabla de pedidos
--- CREATE TABLE pedidos (
---     id INT PRIMARY KEY AUTO_INCREMENT,
---     usuario_id INT NOT NULL,
---     numero_pedido VARCHAR(20) UNIQUE NOT NULL,
---     total DECIMAL(10, 2) NOT NULL,
---     estado ENUM('pendiente', 'procesando', 'enviado', 'entregado', 'cancelado') DEFAULT 'pendiente',
---     direccion_envio TEXT NOT NULL,
---     metodo_pago ENUM('tarjeta', 'transferencia', 'contraentrega') NOT NULL,
---     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
---     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
--- );
+CREATE TABLE pedidos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_nombre VARCHAR(100) NOT NULL,
+    cliente_email VARCHAR(100) NOT NULL,
+    cliente_direccion TEXT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+ );
 
--- -- Tabla de detalles del pedido
--- CREATE TABLE detalles_pedido (
---     id INT PRIMARY KEY AUTO_INCREMENT,
---     pedido_id INT NOT NULL,
---     producto_id INT NOT NULL,
---     cantidad INT NOT NULL,
---     precio_unitario DECIMAL(10, 2) NOT NULL,
---     subtotal DECIMAL(10, 2) NOT NULL,
---     FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
---     FOREIGN KEY (producto_id) REFERENCES productos(id)
--- );
+
+ CREATE TABLE detalles_pedido (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    pedido_id INT NOT NULL,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+   FOREIGN KEY (producto_id) REFERENCES productos(id)
+ );
+
+INSERT INTO tarjetas (descripcion, avatar_url, title, calificacion, id) VALUES
+('Excelente calidad y diseño moderno.', 'https://ui-avatars.com/api/?name=Nombre+Usuario', 'Juan Pérez', 4.5, 1),
+('Muy cómodo y fácil de montar.', 'https://ui-avatars.com/api/?name=Nombre+Usuario', 'María Gómez', 4.3, 2),
+('Perfecto para mi sala de estar.', 'https://ui-avatars.com/api/?name=Nombre+Usuario', 'Carlos López', 3.4, 3),
+('Buena relación calidad-precio.', 'https://ui-avatars.com/api/?name=Nombre+Usuario', 'Ana Martínez', 4.2, 4),
+('Diseño elegante y funcional.', 'https://ui-avatars.com/api/?name=Nombre+Usuario', 'Luis Rodríguez', 2.6, 5);
+
 
 -- Insertar datos iniciales
 INSERT INTO categorias (nombre, descripcion) VALUES
@@ -104,12 +79,9 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Camas', 'Camas y cabeceros'),
 ('Armarios', 'Armarios y guardarropas');
 
--- -- Insertar usuario admin (password: Admin123)
--- INSERT INTO usuarios (nombre, email, password, rol) VALUES
--- ('Administrador', 'admin@muebles.com', '$2b$10$TuHashDeContraseñaGenerado', 'admin');'
 
 INSERT INTO productos (nombre, descripcion, precio, categoria_id, stock, material, color, dimensiones, peso, imagenes, destacado) VALUES
-('Sofá Moderno', 'Sofá de diseño moderno y cómodo', 499.99, 1, 10, 'Tela', 'Gris', '200x90x100 cm', 50.0, 'https://picsum.photos/200/300', TRUE),
+('Sofá Moderno', 'Sofá de diseño moderno y cómodo', 499.99, 1, 10, 'Tela', 'Gris', '200x90x100 cm', 50.0, 'https://media.istockphoto.com/id/1293762741/es/foto/moderno-sal%C3%B3n-interior-3d-render.jpg?s=2048x2048&w=is&k=20&c=r8j7AxMG9esMkeuS1ZDao-0lh_ryJx_olV5bF6w9oDU=', TRUE),
 ('Mesa de Centro', 'Mesa de centro elegante', 199.99, 2, 15, 'Madera', 'Marrón', '120x60x45 cm', 30.0, 'https://picsum.photos/200/300', FALSE),
 ('Silla de Oficina', 'Silla ergonómica para oficina', 149.99, 3, 20, 'Cuero', 'Negro', '60x60x110 cm', 15.0, 'https://picsum.photos/200/300', TRUE),
 ('Cama Doble', 'Cama doble con cabecero acolchado', 799.99, 4, 5, 'Madera y Tela', 'Blanco', '200x160x120 cm', 70.0, 'https://picsum.photos/200/300', FALSE),
@@ -129,3 +101,8 @@ INSERT INTO productos (nombre, descripcion, precio, categoria_id, stock, materia
 ('Silla de Relax', 'Silla reclinable para relajarse', 299.99, 3, 10, 'Tela y Metal', 'Gris Oscuro', '80x80x100 cm', 20.0, 'https://picsum.photos/200/300', FALSE),
 ('Cama King Size', 'Cama king size con almacenamiento integrado', 1299.99, 4, 2, 'Madera y Tela', 'Gris Oscuro', '210x180x130 cm', 100.0, 'https://picsum.photos/200/300', TRUE),
 ('Armario con Espejo', 'Armario con puertas espejadas', 899.99, 5, 7, 'Madera y Espejo', 'Blanco Brillante', '160x60x200 cm', 85.0, 'https://picsum.photos/200/300', FALSE);
+
+
+
+SELECT  imagenes FROM productos ORDER BY id;
+SELECT descripcion, avatar_url, title, calificacion, id FROM tarjeta ORDER BY title;

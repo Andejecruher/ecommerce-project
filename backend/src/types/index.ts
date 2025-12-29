@@ -28,6 +28,13 @@ export interface Producto {
     fecha_creacion?: Date;
 }
 
+export interface tarjetas {
+    id?: number;
+    descripcion: string;
+    avatar_url?: string;
+    title?: string;
+}
+
 export interface Categoria {
     id?: number;
     nombre: string;

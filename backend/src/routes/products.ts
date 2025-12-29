@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getAllProducts, getOurPopularProducts, getProductById, getProductsByCategory, getCategoryById, getName, getproductColor } from "../controllers/product";
+import { getAllProducts, getOurPopularProducts, getpooltarjetas  } from "../controllers/product";
 
 const router = Router();
 
-// Example route to get all products
+
 router.get("/", async (req, res) => {
     try {
         const products = await getAllProducts();
@@ -25,28 +25,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
-    const productId = req.params.id;
-    // Here you would typically call a service to get the product by ID
-    try {
-        const product = await getProductById(Number(productId));
-        if (product) {
-            res.json({
-                success: true,
-                data: product,
-                message: "Product retrieved successfully"
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: "Product not found"
-            });
-        }
-    } catch (error) {
-        console.error("Error fetching product by ID:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
 
 router.get("/popular/our", async (req, res) => {
     try {
@@ -55,7 +33,7 @@ router.get("/popular/our", async (req, res) => {
             res.json({
                 success: true,
                 data: products,
-                message: "Popular products retrieved successfully"
+                message: "entranndo ala funcion de productos populares"
             });
         } else {
             res.status(404).json({
@@ -69,80 +47,28 @@ router.get("/popular/our", async (req, res) => {
     }
 });
 
-router.get("/category/:categoryId", async (req, res) => {
-    const categoryId = req.params.categoryId;
+
+router.get("/tarjeta", async (req, res) => {
     try {
-        const products = await getProductsByCategory(Number(categoryId));
-        if (products) {
+        const tarjetas = await getpooltarjetas();
+        if (tarjetas) {
             res.json({
                 success: true,
-                data: products,
-                message: "Products by category retrieved successfully"
+                data: tarjetas,
+                message: "entranndo ala funcion de tarjetas"
             });
         } else {
             res.status(404).json({
                 success: false,
-                message: "No products found for this category"
+                message: "No tarjetas found"
             });
         }
     } catch (error) {
-        console.error("Error fetching products by category:", error);
+        console.error("Error fetching tarjetas:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
-router.get("/category/:categoryId", async (req, res) => {
-    const categoryId = req.params.categoryId;
-    try {
-        const category = await getCategoryById(Number(categoryId));
-        if (category) {
-            res.json({
-                success: true,
-                data: category,
-                message: "Category retrieved successfully"
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: "Category not found"
-            });
-        }
-    } catch (error) {
-        console.error("Error fetching category by ID:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-router.get("/name/:name", async (req, res) => {
-    const nombre = req.params.name;
-    try {
-        const product = await getName(String(nombre));
-        res.json({
-            success: true,
-            data: product,
-            message: "Product name retrieved successfully"
-        });
-    } catch (error) {
-        console.error("Error fetching product by name:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-
-router.get("/color/:color", async (req, res) => {
-    const color = req.params.color;
-    try {
-        const product = await getproductColor(String(color));
-        res.json({
-            success: true,
-            data: product,
-            message: "Product color retrieved successfully"
-        });
-    } catch (error) {
-        console.error("Error fetching product by color:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
 
 
 

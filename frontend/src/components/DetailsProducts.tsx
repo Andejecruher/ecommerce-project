@@ -1,6 +1,32 @@
 import silla2 from "@/assets/img/Rectangle.png";
+import { useNavigate, useParams } from "react-router";
 
 export function DetailsProducts() {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
+  // Simulación de obtención del producto por ID
+  const producto = id ? { id, nombre: "White Aesthetic Chair" } : null;
+
+  if (!producto) {
+    return (
+      <section className="px-6 md:px-25 mt-[50px] lg:mt-[100px]">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Producto no encontrado</h2>
+          <p className="mb-6">
+            El producto que buscas no existe o ha sido removido.
+          </p>
+          <button
+            onClick={() => navigate("/products")}
+            className="bg-[#518581] text-white px-6 py-3 rounded-lg hover:bg-[#3f6a67]"
+          >
+            Ver todos los productos
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   const coloresDisponibles = [
     { nombre: "Blanco", clase: "bg-[#151411]" },
     { nombre: "Negro", clase: "bg-[#314443]" },

@@ -48,20 +48,19 @@ export function Carrusel() {
     ],
   };
 
-
   useEffect(() => {
     const fetchPopularProducts = async () => {
       try {
         const products = await getPopularProducts();
         if (products.success) {
           setProducts(products.data);
-          alert(products.message);
+          console.log(products.message);
         } else {
-          alert(products.message);
+          console.log(products.message);
         }
       } catch (error) {
-        console.error('Error fetching popular products:', error);
-        alert('Error fetching popular products');
+        console.error("Error fetching popular products:", error);
+        console.log("Error fetching popular products");
       }
     };
 
@@ -77,10 +76,13 @@ export function Carrusel() {
               <CardProduct
                 key={card.id}
                 url={card.imagenes || ""}
-                localizador={String(card.categoria_id)}
+                localizador={String(card.id)}
                 title={card.nombre}
                 slogan={card.descripcion}
-                precio={`$ ${card.precio.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}`}
+                precio={`$ ${card.precio.toLocaleString("es-MX", {
+                  style: "currency",
+                  currency: "MXN",
+                })}`}
               />
             </>
           );
