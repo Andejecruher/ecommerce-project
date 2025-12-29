@@ -1,12 +1,20 @@
 import { Router } from "express";
-import { getAllProducts, getOurPopularProducts, getpooltarjetas  } from "../controllers/product";
+import { getAllProducts, getOurPopularProducts, getpooltarjetas } from "../controllers/product";
 
 const router = Router();
 
 
 router.get("/", async (req, res) => {
     try {
-        const products = await getAllProducts();
+        const { search, limit, page } = req.query;
+
+        const params = {
+            search: search ? String(search) : undefined,
+            limit: limit ? Number(limit) : 10,
+            page: page ? Number(page) : 1,
+        };
+
+        const products = await getAllProducts(params);
         if (products) {
             res.json({
                 success: true,

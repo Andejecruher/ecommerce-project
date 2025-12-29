@@ -1,8 +1,12 @@
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:54321/api';
 
 
-const allProducts = async () => {
-    const response = await fetch(`${apiUrl}/products`)
+const allProducts = async ({
+    search, limit, page
+}: {
+    search?: string; limit?: number; page?: number
+}) => {
+    const response = await fetch(`${apiUrl}/products?limit=${limit || 10}&page=${page || 1}&search=${search || ''}`)
         .then(response => response.json())
         .then(data => {
             return data;
@@ -46,4 +50,4 @@ const getTarjetas = async () => {
 
 
 
-export {allProducts, getPopularProducts, getTarjetas };
+export { allProducts, getPopularProducts, getTarjetas };

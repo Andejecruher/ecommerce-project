@@ -1,8 +1,19 @@
-import { allProducts, ourPopularProducts, gettarjetas  } from '../services/products';
+import { allProducts, gettarjetas, ourPopularProducts } from '../services/products';
 import { Producto, tarjetas } from '../types';
 
-async function getAllProducts(): Promise<Producto[]> {
-    return allProducts();
+async function getAllProducts({ search, limit, page }: { search?: string; limit?: number; page?: number }): Promise<{
+    products: Producto[];
+    pagination: {
+        currentPage: number;
+        totalPages: number;
+        totalRecords: number;
+    };
+}> {
+    return allProducts({
+        search,
+        limit,
+        page,
+    });
 }
 
 async function getOurPopularProducts(): Promise<Producto[]> {
