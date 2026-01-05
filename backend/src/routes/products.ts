@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllProducts, getOurPopularProducts, getpooltarjetas } from "../controllers/product";
+import { getAllProducts, getOurPopularProducts, getpooltarjetas, getpoolarticulos} from "../controllers/product";
 
 const router = Router();
 
@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
             search: search ? String(search) : undefined,
             limit: limit ? Number(limit) : 10,
             page: page ? Number(page) : 1,
+            filter: req.query.filter ? String(req.query.filter) : undefined
         };
 
         const products = await getAllProducts(params);
@@ -77,6 +78,27 @@ router.get("/tarjeta", async (req, res) => {
     }
 });
 
+
+router.get("/articulos", async (req, res) => {
+    try {
+        const articulos = await getpoolarticulos();
+        if (articulos) {
+            res.json({
+                success: true,
+                data: articulos,
+                message: "entranndo ala funcion de articulos"
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: "No articulos found"
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching articulos:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 
 

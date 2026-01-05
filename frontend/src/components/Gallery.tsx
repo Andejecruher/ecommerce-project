@@ -1,5 +1,5 @@
 import buscar from "@/assets/logos/logobus.png";
-import { CardProduct } from '@/components/ui/CardProduct';
+import { CardProduct } from "@/components/ui/CardProduct";
 import {
   Pagination,
   PaginationContent,
@@ -7,10 +7,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination';
-import { allProducts } from '@/services/products';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+} from "@/components/ui/pagination";
+import { allProducts } from "@/services/products";
+import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router";
+
 interface Producto {
   id?: number;
   nombre: string;
@@ -30,8 +31,11 @@ interface Producto {
 }
 
 export function Gallery() {
+  const [activeFilter, setActiveFilter] = useState<string>("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
   const [products, setProducts] = useState<Producto[]>([]);
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>("");
   const [limit, setLimit] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
   const [pagination, setPagination] = useState({
@@ -43,7 +47,12 @@ export function Gallery() {
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const products = await allProducts({ search, limit, page });
+        const products = await allProducts({
+          search,
+          limit,
+          page,
+          filter: activeFilter,
+        });
         if (products.success) {
           setProducts(products.data.products);
           setPagination(products.data.pagination);
@@ -51,18 +60,38 @@ export function Gallery() {
           console.log(products.message);
         }
       } catch (error) {
-        console.error('Error fetching popular products:', error);
-        console.log('Error fetching popular products');
+        console.error("Error fetching popular products:", error);
+        console.log("Error fetching popular products");
       }
     };
 
     fetchAllProducts();
-  }, [search, limit, page]);
+  }, [search, limit, page, activeFilter]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Verificar si el clic fue FUERA del componente
+      if (
+        filterRef.current &&
+        !filterRef.current.contains(event.target as Node)
+      ) {
+        setIsFilterOpen(false); // Cerrar el filtro
+      }
+    };
+
+    // Agregar el event listener cuando el componente se monta
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remover el event listener cuando el componente se desmonta
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navigate = useNavigate();
   const handleSelect = (id?: number) => {
     if (id === undefined) return;
-    console.log('Selected product:', id);
+    console.log("Selected product:", id);
     navigate(`/products/${id}`);
   };
 
@@ -75,7 +104,7 @@ export function Gallery() {
               <img src={buscar} alt="imagen" className="w-6 h-6" />
               <input
                 onChange={(e) => {
-                  setSearch(e.target.value)
+                  setSearch(e.target.value);
                 }}
                 className="text-[#AFADB5] flex items-center w-full h-[45px] outline-0 font-medium text-[14px] sm:text-[18px] leading-[180%]"
                 placeholder="Search property"
@@ -90,38 +119,125 @@ export function Gallery() {
               </button>
             </div>
           </div>
-          <div className="hidden w-[190px] lg:block h-[84px] shadow-[0_4px_80px_0_rgba(175,173,181,0.20)] ">
-            <div className="flex justify-center items-center  ">
-              <div className="flex mt-5 gap-3 ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 30 30"
-                  fill="none"
+          <div className="relative hidden w-[190px] lg:block" ref={filterRef}>
+            {/* BOTÓN COMPLETO */}
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="w-full h-[84px] shadow-[0_4px_80px_0_rgba(175,173,181,0.20)] flex justify-center items-center gap-3 focus:outline-none relative cursor-pointer hover:shadow-[0_4px_80px_0_rgba(175,173,181,0.30)] transition-shadow"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+              >
+                <path
+                  d="M6.75 2.625H23.25C24.625 2.625 25.75 3.75 25.75 5.125V7.875C25.75 8.875 25.125 10.125 24.5 10.75L19.125 15.5C18.375 16.125 17.875 17.375 17.875 18.375V23.75C17.875 24.5 17.375 25.5 16.75 25.875L15 27C13.375 28 11.125 26.875 11.125 24.875V18.25C11.125 17.375 10.625 16.25 10.125 15.625L5.375 10.625C4.75 10 4.25 8.875 4.25 8.125V5.25C4.25 3.75 5.375 2.625 6.75 2.625Z"
+                  stroke="#151411"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13.6625 2.625L7.5 12.5"
+                  stroke="#151411"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              <span className="text-title-950 text-[18px] font-medium leading-[180%]">
+                Filter
+              </span>
+
+              {/* INDICADOR DE FILTRO ACTIVO */}
+              {activeFilter && (
+                <span className="absolute top-3 right-3 w-2 h-2 bg-primary-500 rounded-full"></span>
+              )}
+            </button>
+
+            {/* DROPDOWN - CORREGIDO */}
+            {isFilterOpen && (
+              <div
+                className="absolute top-[90px] left-0 w-full bg-white shadow-lg rounded-md overflow-hidden z-20"
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              >
+                <button
+                  className={`w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors ${
+                    activeFilter === "destacados"
+                      ? "bg-blue-50 text-blue-600"
+                      : ""
+                  }`}
+                  onClick={() => {
+                    setActiveFilter(
+                      activeFilter === "destacados" ? "" : "destacados"
+                    );
+                    setIsFilterOpen(false);
+                    setPage(1);
+                  }}
                 >
-                  <path
-                    d="M6.75 2.625H23.25C24.625 2.625 25.75 3.75 25.75 5.125V7.875C25.75 8.875 25.125 10.125 24.5 10.75L19.125 15.5C18.375 16.125 17.875 17.375 17.875 18.375V23.75C17.875 24.5 17.375 25.5 16.75 25.875L15 27C13.375 28 11.125 26.875 11.125 24.875V18.25C11.125 17.375 10.625 16.25 10.125 15.625L5.375 10.625C4.75 10 4.25 8.875 4.25 8.125V5.25C4.25 3.75 5.375 2.625 6.75 2.625Z"
-                    stroke="#151411"
-                    stroke-width="2"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M13.6625 2.625L7.5 12.5"
-                    stroke="#151411"
-                    stroke-width="2"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <button className="text-title-950 text-[18px] font-medium leading-[180%]">
-                  Filter
+                  destacados
+                </button>
+
+                <button
+                  className={`w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors ${
+                    activeFilter === "mas_baratos"
+                      ? "bg-blue-50 text-blue-600"
+                      : ""
+                  }`}
+                  onClick={() => {
+                    setActiveFilter(
+                      activeFilter === "mas_baratos" ? "" : "mas_baratos"
+                    );
+                    setIsFilterOpen(false);
+                    setPage(1);
+                  }}
+                >
+                  mas baratos
+                </button>
+
+                <button
+                  className={`w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors ${
+                    activeFilter === "camas" ? "bg-blue-50 text-blue-600" : ""
+                  }`}
+                  onClick={() => {
+                    setActiveFilter(activeFilter === "camas" ? "" : "camas");
+                    setIsFilterOpen(false);
+                    setPage(1);
+                  }}
+                >
+                  camas
+                </button>
+
+                <button
+                  className={`w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors ${
+                    activeFilter === "mesas" ? "bg-blue-50 text-blue-600" : ""
+                  }`}
+                  onClick={() => {
+                    setActiveFilter(activeFilter === "mesas" ? "" : "mesas");
+                    setIsFilterOpen(false);
+                    setPage(1);
+                  }}
+                >
+                  mesas
+                </button>
+
+                <button
+                  className={`w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors ${
+                    activeFilter === "sillas" ? "bg-blue-50 text-blue-600" : ""
+                  }`}
+                  onClick={() => {
+                    setActiveFilter(activeFilter === "sillas" ? "" : "sillas");
+                    setIsFilterOpen(false);
+                    setPage(1);
+                  }}
+                >
+                  sillas
                 </button>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className="mt-8 px-6 md:px-25 flex items-center lg:flex-row justify-between">
@@ -144,9 +260,24 @@ export function Gallery() {
                   viewBox="0 0 24 24"
                   fill="none"
                 >
-                  <path d="M3 7H21" stroke="#151411" stroke-width="1.5" stroke-linecap="round" />
-                  <path d="M6 12H18" stroke="#151411" stroke-width="1.5" stroke-linecap="round" />
-                  <path d="M10 17H14" stroke="#151411" stroke-width="1.5" stroke-linecap="round" />
+                  <path
+                    d="M3 7H21"
+                    stroke="#151411"
+                    strokeWidth="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M6 12H18"
+                    stroke="#151411"
+                    strokeWidth="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M10 17H14"
+                    stroke="#151411"
+                    strokeWidth="1.5"
+                    stroke-linecap="round"
+                  />
                 </svg>
                 <p>Sort By</p>
               </div>
@@ -160,14 +291,15 @@ export function Gallery() {
             return (
               <>
                 <CardProduct
+                  key={card.id}
                   onSelect={() => handleSelect(card.id)}
-                  url={card.imagenes || ''}
-                  localizador={String(card.id) || '0'}
+                  url={card.imagenes || ""}
+                  localizador={String(card.id) || "0"}
                   title={card.nombre}
                   slogan={card.descripcion}
-                  precio={`$ ${card.precio.toLocaleString('es-MX', {
-                    style: 'currency',
-                    currency: 'MXN',
+                  precio={`$ ${card.precio.toLocaleString("es-MX", {
+                    style: "currency",
+                    currency: "MXN",
                   })}`}
                 />
               </>
@@ -208,7 +340,10 @@ export function Gallery() {
                   }}
                 />
               </PaginationItem>
-              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => (
+              {Array.from(
+                { length: pagination.totalPages },
+                (_, i) => i + 1
+              ).map((page) => (
                 <PaginationItem key={page}>
                   <PaginationLink
                     className="cursor-pointer"

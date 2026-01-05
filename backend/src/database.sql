@@ -34,6 +34,7 @@ CREATE TABLE productos (
 );
 
 
+
  CREATE TABLE tarjetas (
      descripcion VARCHAR(255) NOT NULL,
      avatar_url VARCHAR(255),
@@ -51,6 +52,10 @@ CREATE TABLE pedidos (
     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP
  );
 
+CREATE TABLE articulos(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    imagen TEXT NOT NULL
+)
 
  CREATE TABLE detalles_pedido (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -78,6 +83,15 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Sillas', 'Sillas para comedor y oficina'),
 ('Camas', 'Camas y cabeceros'),
 ('Armarios', 'Armarios y guardarropas');
+
+
+-- Insertar datos iniciales en la tabla articulos
+INSERT INTO articulos (id, imagen) VALUES
+(1, 'https://picsum.photos/200/300'),
+(2, 'https://picsum.photos/200/300'),
+(3, 'https://picsum.photos/200/300'),
+(4, 'https://picsum.photos/200/300'),
+(5, 'https://picsum.photos/200/300');
 
 
 INSERT INTO productos (nombre, descripcion, precio, categoria_id, stock, material, color, dimensiones, peso, imagenes, destacado) VALUES

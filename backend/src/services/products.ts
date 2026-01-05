@@ -1,12 +1,13 @@
 import { Database } from '../config/database';
-import { Producto, tarjetas } from '../types';
+import { Producto, tarjetas, articulos, } from '../types';
 
 
 async function allProducts({
     search,
     limit,
-    page
-}: { search?: string; limit?: number; page?: number }): Promise<{
+    page,
+    filter,
+}: { search?: string; limit?: number; page?: number; filter?: string }): Promise<{
     products: Producto[];
     pagination: {
         currentPage: number;
@@ -16,24 +17,63 @@ async function allProducts({
 }> {
     const connection = await Database.getConnection();
     const offset = (page && limit) ? (page - 1) * limit : 0;
-    console.log("🚀 ----------------------------------------🚀");
-    console.log("🚀 ~ :19 ~ allProducts ~ offset:", offset);
-    console.log("🚀 ----------------------------------------🚀");
 
     try {
         let sql = 'SELECT * FROM productos';
         const params: any[] = [];
-
+        let whereConditions: string[] = [];
+        
+        // 1. Filtro por búsqueda
         if (search) {
-            sql += ' WHERE nombre LIKE ? OR descripcion LIKE ? OR dimensiones LIKE ? OR color LIKE ? OR material LIKE ?';
+            whereConditions.push('(nombre LIKE ? OR descripcion LIKE ? OR dimensiones LIKE ? OR color LIKE ? OR material LIKE ?)');
             const searchTerm = `%${search}%`;
             params.push(searchTerm, searchTerm, searchTerm, searchTerm, searchTerm);
         }
 
+        // 2. Definir ORDEN por defecto (se puede cambiar según filtro)
+        let orderBy = 'ORDER BY id';  // Orden por defecto
+        
+        // 3. Filtro por categoría - SOLO condiciones WHERE y definir orden si aplica
+        if (filter) {
+            if (filter === 'destacados') {
+                whereConditions.push('destacado = 1');
+                orderBy = 'ORDER BY destacado DESC';
+            } 
+            else if (filter === 'mas_baratos') {
+                whereConditions.push('precio < 700');
+                orderBy = 'ORDER BY precio ASC';  // ✅ Definimos orden aquí, pero NO lo agregamos al SQL aún
+            }
+            else if (filter === 'camas') {
+                whereConditions.push('(nombre LIKE ? OR descripcion LIKE ? OR dimensiones LIKE ? OR color LIKE ? OR material LIKE ?)');
+                params.push('%cama%', '%cama%', '%cama%', '%cama%', '%cama%');
+            }
+            else if (filter === 'mesas') {
+                whereConditions.push('(nombre LIKE ? OR descripcion LIKE ? OR dimensiones LIKE ? OR color LIKE ? OR material LIKE ?)');
+                params.push('%mesa%', '%mesa%', '%mesa%', '%mesa%', '%mesa%');
+            }
+            else if (filter === 'sillas') {
+                whereConditions.push('(nombre LIKE ? OR descripcion LIKE ? OR dimensiones LIKE ? OR color LIKE ? OR material LIKE ?)');
+                params.push('%silla%', '%silla%', '%silla%', '%silla%', '%silla%');
+            }
+        }
+
+        // 4. Combinar condiciones WHERE (SOLO UNA VEZ)
+        if (whereConditions.length > 0) {
+            sql += ' WHERE ' + whereConditions.join(' AND ');
+        }
+
+        // 5. Agregar ORDER BY (DESPUÉS del WHERE)
+        sql += ' ' + orderBy;
+
+        // 6. Límite y offset (DESPUÉS del ORDER BY)
         const limitValue = limit || 10;
         const offsetValue = offset;
-        sql += ` ORDER BY id LIMIT ${limitValue} OFFSET ${offsetValue}`;
+        sql += ` LIMIT ${limitValue} OFFSET ${offsetValue}`;
 
+        console.log("✅ SQL final:", sql);
+        console.log("✅ Parámetros:", params);
+
+        // [Resto del código igual...]
         const [rows] = await connection.execute(sql, params) as [any[], any];
         const productos: Producto[] = rows.map(row => ({
             id: row.id,
@@ -51,19 +91,24 @@ async function allProducts({
             fecha_creacion: row.fecha_creacion
         }));
 
-        // obtener el total de registros para paginación
+        // Obtener el total de registros para paginación
         let countSql = 'SELECT COUNT(*) as count FROM productos';
         const countParams: any[] = [];
+        let countConditions: string[] = [];
 
+        // Mismas condiciones que la consulta principal (SOLO WHERE, sin ORDER BY)
         if (search) {
-            countSql += ' WHERE nombre LIKE ? OR descripcion LIKE ?';
+            countConditions.push('(nombre LIKE ? OR descripcion LIKE ?)');
             const searchTerm = `%${search}%`;
             countParams.push(searchTerm, searchTerm);
         }
 
+
+        console.log("✅ Count SQL:", countSql);
+        console.log("✅ Count Params:", countParams);
+
         const [countRows] = await connection.execute(countSql, countParams) as [any[], any];
         const totalRecords = countRows[0]?.count || 0;
-
 
         return {
             products: productos,
@@ -77,7 +122,6 @@ async function allProducts({
         connection.release();
     }
 }
-
 
 
 async function ourPopularProducts(): Promise<Producto[]> {
@@ -172,4 +216,19 @@ async function gettarjetas(): Promise<tarjetas[]> {
     }
 }
 
-export { allProducts, gettarjetas, ourPopularProducts };
+async function getArticulos(): Promise<articulos[]> {
+    const connection = await Database.getConnection();
+    try {
+        const sql = `SELECT * FROM articulos LIMIT 5`;
+        const [rows] = await connection.execute(sql) as [any[], any];
+        const articulosList: articulos[] = rows.map(row => ({
+            id: row.id,
+            imagen: row.imagen
+        }));
+        return articulosList;
+    } finally {
+        connection.release();
+    }
+}
+
+export { allProducts, gettarjetas, ourPopularProducts, getArticulos };

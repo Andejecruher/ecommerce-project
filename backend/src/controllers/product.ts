@@ -1,7 +1,8 @@
-import { allProducts, gettarjetas, ourPopularProducts } from '../services/products';
-import { Producto, tarjetas } from '../types';
+import { promises } from 'dns';
+import { allProducts, gettarjetas, ourPopularProducts, getArticulos } from '../services/products';
+import { Producto, tarjetas, articulos } from '../types';
 
-async function getAllProducts({ search, limit, page }: { search?: string; limit?: number; page?: number }): Promise<{
+async function getAllProducts({ search, limit, page, filter, }: { search?: string; limit?: number; page?: number; filter?: string }): Promise<{
     products: Producto[];
     pagination: {
         currentPage: number;
@@ -13,6 +14,7 @@ async function getAllProducts({ search, limit, page }: { search?: string; limit?
         search,
         limit,
         page,
+        filter,
     });
 }
 
@@ -24,5 +26,8 @@ async function getpooltarjetas(): Promise<tarjetas[]> {
     return gettarjetas();
 }
 
+async function getpoolarticulos(): Promise<articulos[]> {
+    return getArticulos();
+}
 
-export { getAllProducts, getOurPopularProducts, getpooltarjetas };
+export { getAllProducts, getOurPopularProducts, getpooltarjetas, getpoolarticulos };

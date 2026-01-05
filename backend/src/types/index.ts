@@ -35,6 +35,11 @@ export interface tarjetas {
     title?: string;
 }
 
+export interface articulos {
+    id?: number;
+    imagen: string;
+}
+
 export interface Categoria {
     id?: number;
     nombre: string;

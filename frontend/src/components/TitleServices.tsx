@@ -5,8 +5,7 @@ export function TitleServices() {
     <div>
       <TituloDescripcion
         titulo="Services"
-        descripcion="We display products based on the latest products we have, if you want
-        to see our old products please enter the name of the item"
+        descripcion="The product crafted by talented crafter and using high quality material with love inside"
       />
     </div>
   );
